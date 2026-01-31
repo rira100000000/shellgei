@@ -3,9 +3,9 @@ require 'date'
 class Loan
   PERIOD_OF_LOAN = 14
 
-  def initialize(patron_id, book_id)
-    @patron_id = patron_id
-    @book_id = book_id
+  def initialize(patron, book)
+    @patron = patron
+    @book = book
     @loan_on = Date.today
     @due_date = @loan_on + PERIOD_OF_LOAN
     @give_backed_on = nil
