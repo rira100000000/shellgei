@@ -5,7 +5,7 @@ class LoanSearcher
     @loans = []
   end
 
-  def create_loan(patron, book)
+  def record(patron, book)
     loan = Loan.new(patron, book)
     @loans << loan
 
