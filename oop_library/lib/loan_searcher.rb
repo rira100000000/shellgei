@@ -21,8 +21,8 @@ class LoanSearcher
     active_loans.filter { it.patron == patron }
   end
 
-  def active_loans_by_book(book)
-    active_loans.filter { it.book == book }
+  def find_loan_by_book(book)
+    active_loans.find { it.book == book }
   end
 
   def overdue_loans
