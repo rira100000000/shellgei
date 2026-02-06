@@ -6,7 +6,10 @@ class LoanSearcher
   end
 
   def create_loan(patron, book)
-    @loans << Loan.new(patron, book)
+    loan = Loan.new(patron, book)
+    @loans << loan
+
+    loan
   end
 
   def active_loans
