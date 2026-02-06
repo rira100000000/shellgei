@@ -9,7 +9,7 @@ class LoanSearcher
     @loans << Loan.new(patron, book)
   end
 
-  def checked_out_loans
+  def active_loans
     @loans.reject(&:give_backed?)
   end
 
@@ -17,12 +17,12 @@ class LoanSearcher
     @loans.filter { it.patron == patron }
   end
 
-  def checked_out_loans_by_patron(patron)
-    checked_out_loans.filter { it.patron == patron }
+  def active_loans_by_patron(patron)
+    active_loans.filter { it.patron == patron }
   end
 
-  def checked_out_loans_by_book(book)
-    checked_out_loans.filter { it.book == book }
+  def active_loans_by_book(book)
+    active_loans.filter { it.book == book }
   end
 
   def overdue_loans
