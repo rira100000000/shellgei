@@ -1,15 +1,18 @@
 require_relative './loan'
 
 class LoanSearcher
-  def initialize(loans)
+  def initialize
     @loans = []
   end
 
-  def create_loan(patron, book)
-    @loans << Loan.new(patron, book)
+  def record(patron, book)
+    loan = Loan.new(patron, book)
+    @loans << loan
+
+    loan
   end
 
-  def checked_out_loans
+  def active_loans
     @loans.reject(&:give_backed?)
   end
 
@@ -17,12 +20,12 @@ class LoanSearcher
     @loans.filter { it.patron == patron }
   end
 
-  def checked_out_loans_by_patron(patron)
-    checked_out_loans.filter { it.patron == patron }
+  def active_loans_by_patron(patron)
+    active_loans.filter { it.patron == patron }
   end
 
-  def checked_out_loans_by_book(book)
-    checked_out_loans.filter { it.book == book }
+  def find_loan_by_book(book)
+    active_loans.find { it.book == book }
   end
 
   def overdue_loans

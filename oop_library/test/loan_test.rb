@@ -7,12 +7,12 @@ require_relative '../lib/patron'
 
 class LoanTest < Minitest::Test
   def setup
-    @book = Book.new('978-4-10-100101-0', '吾輩は猫である', '夏目漱石')
     @patron = Patron.new('さだのら')
+    @book = Book.new('978-4-10-100101-0', '吾輩は猫である', '夏目漱石')
   end
 
   def test_期限内の場合はoverdueがfalseを返す
-    loan = Loan.new(@book, @patron)
+    loan = Loan.new(@patron, @book)
 
     travel 3.days do
       refute loan.overdue?
@@ -20,7 +20,7 @@ class LoanTest < Minitest::Test
   end
 
   def test_期限を過ぎている場合はoverdueがtrueを返す
-    loan = Loan.new(@book, @patron)
+    loan = Loan.new(@patron, @book)
 
     travel 20.days do
       assert loan.overdue?
@@ -28,7 +28,7 @@ class LoanTest < Minitest::Test
   end
 
   def test_本が返却済みなら期限を過ぎていてもoverdueはfalseを返す
-    loan = Loan.new(@book, @patron)
+    loan = Loan.new(@patron, @book)
 
     travel 20.days do
       assert loan.overdue?
