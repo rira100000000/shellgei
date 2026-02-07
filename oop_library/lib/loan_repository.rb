@@ -1,6 +1,6 @@
 require_relative './loan'
 
-class LoanSearcher
+class LoanRepository
   def initialize
     @loans = []
   end

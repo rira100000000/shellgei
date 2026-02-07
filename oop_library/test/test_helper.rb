@@ -17,8 +17,8 @@ module TestHelpers
     Library.new
   end
 
-  def create_loan_searcher
-    LoanSearcher.new
+  def create_loan_repository
+    LoanRepository.new
   end
 end
 

@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require_relative '../lib/library'
 require_relative '../lib/book'
+require_relative './test_helper'
 
 class LibraryTest < Minitest::Test
   def test_add_book_で本を追加できる
