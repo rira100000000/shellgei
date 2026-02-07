@@ -94,15 +94,4 @@ class LibraryTest < Minitest::Test
 
     assert_empty found
   end
-
-  # 以下ヘルパーメソッド
-  private
-
-  def create_library
-    Library.new
-  end
-
-  def create_book(isbn = '978-1234', title = '吾輩は猫である', author = '夏目漱石')
-    Book.new(isbn, title, author)
-  end
 end

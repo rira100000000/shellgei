@@ -157,19 +157,4 @@ class LoanSearcherTest < Minitest::Test
       assert_empty overdue
     end
   end
-
-  # 以下ヘルパーメソッド
-  private
-
-  def create_patron(name = '山田太郎')
-    Patron.new(name)
-  end
-
-  def create_book(isbn = '978-1234', title = '吾輩は猫である', author = '夏目漱石')
-    Book.new(isbn, title, author)
-  end
-
-  def create_loan_searcher
-    LoanSearcher.new
-  end
 end
