@@ -12,6 +12,6 @@ class Library
   end
 
   def find_books_by_isbn(isbn)
-    @books.filter { it.isbn == }
+    @books.filter { it.isbn == isbn }
   end
 end
