@@ -31,4 +31,8 @@ class LoanRepository
   def overdue_loans
     @loans.filter(&:overdue?)
   end
+
+  def loaned_books_by_isbn(isbn)
+    active_loans.filter { it.book.isbn == isbn }.map(&:book)
+  end
 end

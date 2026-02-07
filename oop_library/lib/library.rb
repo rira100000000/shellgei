@@ -1,4 +1,6 @@
 class Library
+  MAX_LOANS_PER_PATRON = 5
+
   attr_reader :books
 
   def initialize
