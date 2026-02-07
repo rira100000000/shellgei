@@ -1,6 +1,8 @@
 require 'date'
 
 class Loan
+  attr_reader :patron, :book
+
   PERIOD_OF_LOAN = 14
 
   def initialize(patron, book)
