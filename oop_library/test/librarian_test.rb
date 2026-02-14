@@ -49,37 +49,37 @@ class LibrarianTest < Minitest::Test
   end
 
   def test_check_out_は貸出上限に達している場合エラーを返す
-  library = create_library
-  loan_repository = create_loan_repository
-  librarian = Librarian.new(loan_repository, library)
-  patron = create_patron
-  book1 = create_book('978-1111', '本1', '著者1')
-  book2 = create_book('978-2222', '本2', '著者2')
-  book3 = create_book('978-3333', '本3', '著者3')
-  book4 = create_book('978-4444', '本4', '著者4')
-  book5 = create_book('978-5555', '本5', '著者5')
-  book6 = create_book('978-6666', '本6', '著者6')
+    library = create_library
+    loan_repository = create_loan_repository
+    librarian = Librarian.new(loan_repository, library)
+    patron = create_patron
+    book1 = create_book('978-1111', '本1', '著者1')
+    book2 = create_book('978-2222', '本2', '著者2')
+    book3 = create_book('978-3333', '本3', '著者3')
+    book4 = create_book('978-4444', '本4', '著者4')
+    book5 = create_book('978-5555', '本5', '著者5')
+    book6 = create_book('978-6666', '本6', '著者6')
 
-  library.add_book(book1)
-  library.add_book(book2)
-  library.add_book(book3)
-  library.add_book(book4)
-  library.add_book(book5)
-  library.add_book(book6)
+    library.add_book(book1)
+    library.add_book(book2)
+    library.add_book(book3)
+    library.add_book(book4)
+    library.add_book(book5)
+    library.add_book(book6)
 
-  # 5冊借りる
-  librarian.check_out(patron, '978-1111')
-  librarian.check_out(patron, '978-2222')
-  librarian.check_out(patron, '978-3333')
-  librarian.check_out(patron, '978-4444')
-  librarian.check_out(patron, '978-5555')
+    # 5冊借りる
+    librarian.check_out(patron, '978-1111')
+    librarian.check_out(patron, '978-2222')
+    librarian.check_out(patron, '978-3333')
+    librarian.check_out(patron, '978-4444')
+    librarian.check_out(patron, '978-5555')
 
-  # 6冊目を借りようとする
-  result = librarian.check_out(patron, '978-6666')
+    # 6冊目を借りようとする
+    result = librarian.check_out(patron, '978-6666')
 
-  assert result.failure?
-  assert_equal '5冊までしか借りれないのよ！まじで！', result.error_message
-end
+    assert result.failure?
+    assert_equal '5冊までしか借りれないのよ！まじで！', result.error_message
+  end
 
   def test_check_out_は返却後なら再び借りられる
     library = create_library
