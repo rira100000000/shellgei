@@ -1,4 +1,4 @@
-require_relative './lib/library'
+require_relative './library'
 
 class Librarian
   Result = Data.define(:value, :error_message) do
@@ -26,8 +26,8 @@ class Librarian
     end
 
     active_loans = @loan_repository.active_loans_by_patron(patron)
-    if active_loans.size > Library::MAX_LOANS_PER_PATRON
-      return Result.new(value: nil, error_message: "#{Library::MAX_LOANS_PER_PATRON}までしか借りれないのよ！まじで！")
+    if active_loans.size >= Library::MAX_LOANS_PER_PATRON
+      return Result.new(value: nil, error_message: "#{Library::MAX_LOANS_PER_PATRON}冊までしか借りれないのよ！まじで！")
     end
 
     # 貸す
