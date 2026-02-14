@@ -3,7 +3,7 @@ require_relative './lib/library'
 class Librarian
   Result = Data.define(:value, :error_message) do
     def success? = error_message.nil?
-    def failed? = !error_message.nil?
+    def failure? = !error_message.nil?
   end
 
   def initialize(loan_repository, library)
