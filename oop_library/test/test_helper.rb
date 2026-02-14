@@ -4,6 +4,13 @@ require 'active_support/testing/time_helpers'
 require 'active_support/core_ext/numeric/time'
 require 'active_support/core_ext/date/calculations'
 
+require_relative '../lib/book'
+require_relative '../lib/patron'
+require_relative '../lib/loan'
+require_relative '../lib/library'
+require_relative '../lib/loan_repository'
+require_relative '../lib/librarian'
+
 module TestHelpers
   def create_patron(name = '山田太郎')
     Patron.new(name)
