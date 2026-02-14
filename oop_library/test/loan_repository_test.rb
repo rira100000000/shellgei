@@ -1,9 +1,5 @@
 require 'minitest/autorun'
 require_relative './test_helper'
-require_relative '../lib/loan_repository'
-require_relative '../lib/loan'
-require_relative '../lib/book'
-require_relative '../lib/patron'
 
 class LoanRepositoryTest < Minitest::Test
   def test_record_は貸出記録を作成して返す
@@ -156,5 +152,48 @@ class LoanRepositoryTest < Minitest::Test
 
       assert_empty overdue
     end
+  end
+
+  def test_loaned_books_by_isbn_は貸し出し中の本を返す
+    loan_repository = create_loan_repository
+    patron1 = create_patron('山田太郎')
+    patron2 = create_patron('鈴木花子')
+    book1 = create_book('978-1234', '吾輩は猫である', '夏目漱石')
+    book2 = create_book('978-1234', '吾輩は猫である', '夏目漱石')  # 同じISBN
+    book3 = create_book('978-5678', 'こころ', '夏目漱石')
+
+    loan_repository.record(patron1, book1)
+    loan_repository.record(patron2, book2)
+    loan_repository.record(patron1, book3)
+
+    loaned_books = loan_repository.loaned_books_by_isbn('978-1234')
+
+    assert_equal 2, loaned_books.size
+    assert_equal loaned_books, [book1, book2]
+  end
+
+  def test_loaned_books_by_isbn_は返却済みの本は含まない
+    loan_repository = create_loan_repository
+    patron = create_patron
+    book1 = create_book('978-1234', '吾輩は猫である', '夏目漱石')
+    book2 = create_book('978-1234', '吾輩は猫である', '夏目漱石')
+
+    loan1 = loan_repository.record(patron, book1)
+    loan2 = loan_repository.record(patron, book2)
+
+    loan1.give_back  # book1 を返却
+
+    loaned_books = loan_repository.loaned_books_by_isbn('978-1234')
+
+    assert_equal 1, loaned_books.size
+    assert_equal loaned_books, [book2]
+  end
+
+  def test_loaned_books_by_isbn_は該当なしの場合空配列を返す
+    loan_repository = create_loan_repository
+
+    loaned_books = loan_repository.loaned_books_by_isbn('978-1234')
+
+    assert_empty loaned_books
   end
 end
