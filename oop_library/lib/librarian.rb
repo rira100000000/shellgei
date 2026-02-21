@@ -35,4 +35,23 @@ class Librarian
 
     Result.new(value: loanable_book, error_message: nil)
   end
+
+  def check_in(book)
+    # 返却記録を取ってくる
+    loan = @loan_repository.find_loan_by_book(book)
+    if loan.nil?
+      return Result.new(value: nil, error_message: "#{book.title}に貸出記録がありませぬ！")
+    end
+    # 本を返したという記録を残す
+    loan.give_back
+    Result.new(value: loan, error_message: nil)
+  end
+
+  def overdue_patrons
+    loans = @loan_repository.overdue_loans
+    loans.each_with_object(Hash.new { |h, k| h[k] = [] }) do |loan, result|
+      # 誰が何の本を借りたか詰め込む
+      result[loan.patron.name] << loan.book.title
+    end
+  end
 end
