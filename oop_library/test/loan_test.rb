@@ -1,9 +1,6 @@
 require 'minitest/autorun'
 require 'date'
 require_relative './test_helper'
-require_relative '../lib/loan'
-require_relative '../lib/book'
-require_relative '../lib/patron'
 
 class LoanTest < Minitest::Test
   def setup

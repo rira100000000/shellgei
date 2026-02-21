@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require_relative '../lib/book'
+require_relative './test_helper'
 
 class BookTest < Minitest::Test
   def test_同一タイトルの書籍は異なるインスタンスとみなす
